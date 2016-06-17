@@ -1,14 +1,15 @@
 {
   "name": "vide-omsa",
   "version": "0.1.0",
-  "author": "vide",
+  "author": "Davide Ferrari",
   "summary": "Install and manage Dell OpenManage Server Administrator (OMSA)",
   "license": "GPLv2",
   "source": "https://github.com/vide/puppet-omsa",
   "project_page": "https://github.com/vide/puppet-omsa",
   "issues_url": "https://github.com/vide/puppet-omsa/issues",
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"},
+    {"name":"puppetlabs-apt","version_requirement":">= 2.0.0"}
   ],
   "data_provider": null
 }

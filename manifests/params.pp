@@ -1,20 +1,9 @@
-# Class: omsa
+# Class: omsa::params
 # ===========================
 #
 # Full description of class omsa here.
 #
-# Parameters
-# ----------
-#
-# Document parameters here.
-#
-# * `apt_key`
-#  Hash containing the GPG key server and key id, as expected by
-#  Puppetlabs apt module. Useful only if $manage_repo is true
-#
-# * `manage_repo`
-#  Let this module manage the repositories for Dell OMSA installation
-#
+
 # Variables
 # ----------
 #
@@ -45,17 +34,11 @@
 #
 # Copyright 2016 Davide Ferrari, unless otherwise noted.
 #
-class omsa(
-  $apt_key      = $::omsa::params::apt_key,
-  $manage_repo  = true,
-  $package_name = $::omsa::params::package_name,
-) inherits omsa::params {
+class omsa::params {
 
-
-  if str2bool("${manage_repo}") {
-    class { '::omsa::repo':
-      before => Package[$package_name],
-    }
+  $apt_key = {
+    id     => '1285491434D8786F',
+    server => 'hkp://ha.pool.sks-keyservers.net:80',
   }
 
 }
