@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "author": "Davide Ferrari",
   "summary": "Install and manage Dell OpenManage Server Administrator (OMSA)",
-  "license": "GPLv2",
+  "license": "GPL-2.0",
   "source": "https://github.com/vide/puppet-omsa",
   "project_page": "https://github.com/vide/puppet-omsa",
   "issues_url": "https://github.com/vide/puppet-omsa/issues",

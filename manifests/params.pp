@@ -41,4 +41,6 @@ class omsa::params {
     server => 'hkp://ha.pool.sks-keyservers.net:80',
   }
 
+  $package_name = 'srvadmin-base'
+
 }

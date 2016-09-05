@@ -82,7 +82,7 @@ class omsa::repo() inherits omsa::params {
       }
     }
     default: {
-      fail('Operating system (still) not supported by this OMSA module')
+      fail('Operating system not (yet) supported by this OMSA module')
     }
   }
 }
