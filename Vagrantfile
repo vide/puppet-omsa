@@ -17,8 +17,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "ubuntu", primary: true do |ubuntu|
-    ubuntu.vm.box     = 'ubuntu64'
-    ubuntu.vm.box_url = 'http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210.box'
+    ubuntu.vm.box     = 'castiron/ubuntu-14.04-64-puppet-3.8.3'
     ubuntu.vm.provision :shell, :inline => 'aptitude update'
     ubuntu.vm.provision :puppet do |puppet|
       puppet.manifests_path = "tests"

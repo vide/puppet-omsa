@@ -46,16 +46,29 @@
 # Copyright 2016 Davide Ferrari, unless otherwise noted.
 #
 class omsa(
-  $apt_key      = $::omsa::params::apt_key,
-  $manage_repo  = true,
-  $package_name = $::omsa::params::package_name,
+  $apt_key           = $::omsa::params::apt_key,
+  $manage_repo       = true,
+  $service_name      = $::omsa::params::service_name,
+  $service_ensure    = $::omsa::params::service_ensure,
+  $service_enable    = $::omsa::params::service_enable,
+  $install_storage   = true,
+  $install_webserver = false,
+  $install_rac4      = false,
+  $install_rac5      = true,
 ) inherits omsa::params {
 
 
   if str2bool("${manage_repo}") {
     class { '::omsa::repo':
-      before => Package[$package_name],
+      before => Class['::omsa::install'],
     }
   }
 
+  contain ::omsa::install
+  contain ::omsa::config
+  contain ::omsa::service
+
+  Class['::omsa::install'] ->
+  Class['::omsa::config']  ->
+  Class['::omsa::service']
 }

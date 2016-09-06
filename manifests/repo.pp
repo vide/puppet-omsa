@@ -45,21 +45,27 @@
 class omsa::repo() inherits omsa::params {
 
   Exec {
-    path      => [ '/bin', '/usr/bin', '/usr/local/bin' ],
-    cwd       => '/',
+    path => [ '/bin', '/usr/bin', '/usr/local/bin' ],
+    cwd  => '/',
+  }
+
+  if !( $::architecture =~ /^(amd|x86_)64$/ ) {
+    fail("Sorry, architecture ${::architecture} is not supported. Only x86_64|amd64")
   }
 
   case $::osfamily {
     'Debian': {
 
-      include ::apt
+      require ::apt
 
       apt::source { 'dell-system-update':
-        location    => 'deb http://linux.dell.com/repo/community/ubuntu',
-        release     => $::lsbdistcodename,
-        repos       => 'openmanage',
-        key         => $::omsa::apt_key,
-        include_src => false,
+        location => 'http://linux.dell.com/repo/community/ubuntu',
+        release  => $::lsbdistcodename,
+        repos    => 'openmanage',
+        key      => $::omsa::apt_key,
+        include  => {
+          src => false,
+        },
       }
     }
     'RedHat': {
@@ -75,14 +81,14 @@ class omsa::repo() inherits omsa::params {
 
       yumrepo { 'dsu-system-dependent':
         descr    => 'dell-system-update_dependent',
-        baseurl  => 'http://linux.dell.com/repo/hardware/dsu/mirrors.cgi?osname=el$releasever&basearch=$basearch&native=1',
+        baseurl  => "http://linux.dell.com/repo/hardware/dsu/os_dependent/RHEL${::operatingsystemmajrelease}_64",
         gpgcheck => 1,
         gpgkey   => 'http://linux.dell.com/repo/hardware/dsu/public.key',
         enabled  => 1,
       }
     }
     default: {
-      fail('Operating system not (yet) supported by this OMSA module')
+      fail("${::osfamily}: Operating system not (yet) supported by this OMSA module")
     }
   }
 }
