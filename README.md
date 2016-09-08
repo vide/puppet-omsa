@@ -3,10 +3,6 @@
 #### Table of Contents
 
 1. [Description](#description)
-1. [Setup - The basics of getting started with omsa](#setup)
-    * [What omsa affects](#what-omsa-affects)
-    * [Setup requirements](#setup-requirements)
-    * [Beginning with omsa](#beginning-with-omsa)
 1. [Usage - Configuration options and additional functionality](#usage)
 1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 1. [Limitations - OS compatibility, etc.](#limitations)
@@ -14,70 +10,74 @@
 
 ## Description
 
-Start with a one- or two-sentence summary of what the module does and/or what
-problem it solves. This is your 30-second elevator pitch for your module.
-Consider including OS/Puppet version it works with.
-
-You can give more descriptive information in a second paragraph. This paragraph
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?" If your module has a range of functionality (installation, configuration,
-management, etc.), this is the time to mention it.
-
-## Setup
-
-### What omsa affects **OPTIONAL**
-
-If it's obvious what your module touches, you can skip this section. For
-example, folks can probably figure out that your mysql_instance module affects
-their MySQL instances.
-
-If there's more that they should know about, though, this is the place to mention:
-
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you might want to include an additional "Upgrading" section
-here.
-
-### Beginning with omsa
-
-The very basic steps needed for a user to get the module up and running. This
-can include setup steps, if necessary, or it can be an example of the most
-basic use of the module.
+OMSA is the Dell OpenManage System Administrator and it's a useful tool
+to check and configure your Dell HW  from within the operating system
+This puppet module takes care of installing it from Dell's repos and
+and creates a basic configuration
 
 ## Usage
 
-This section is where you describe how to customize, configure, and do the
-fancy stuff with your module here. It's especially helpful if you include usage
-examples and code samples for doing things with your module.
+The most easy way to install puppet-omsa is to simply include the main class:
+
+```puppet
+include ::omsa
+```
+
+This will install the basic package, the storage (RAID) module and the RAC5
+module.
+
+By default puppet-omsa enable external Dell's repositories (based on your OS),
+but if you want you can disable this feature
+
+```puppet
+class { '::omsa':
+  manage_repo => false,
+}
+```
 
 ## Reference
 
-Here, include a complete list of your module's classes, types, providers,
-facts, along with the parameters for each. Users refer to this section (thus
-the name "Reference") to find specific details; most users don't read it per
-se.
+### `omsa` class
+
+ * `apt_key`
+  Hash containing the GPG key server and key id, as expected by
+  Puppetlabs apt module. Useful only if `manage_repo` is true and if `$::osfamily`
+  is Debian
+
+ * `manage_repo`
+  Let this module manage the repositories for Dell OMSA installation
+
+ * `service_name`
+ The service name used to start OMSA. Default: dataeng
+
+ * `service_ensure`
+ Controls whether the service should be running or not. Default: running
+
+ * `service_enable`
+ Controls whether the service should be enabled at boot. Default: enabled
+
+ * `install_storage`
+ If true, enable the "omreport storage" subset. Default: true
+
+ * `install_webserver`
+ If true, enable the OMSA local webserver
+
+ * `install_rac4`
+ Install components to manage the Dell Remote Access Card 4
+
+ * `install_rac5`
+ Install components to manage the Dell Remote Access Card 5
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc. If there
-are Known Issues, you might want to include them under their own heading here.
+This module has been tested on real hardware by the author only on CentOS7, but
+it should work with CentOS6 and RHEL6 and 7.
+It has been tested in Vagrant with Ubuntu 14.04 LTS and it should work on bare metal with
+Debian 7 and Debian 8 too, and Ubuntu 16.04 LTS.
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
-
-## Release Notes/Contributors/Etc. **Optional**
-
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You can also add any additional sections you feel
-are necessary or important to include here. Please use the `## ` header.
+If you find any bug (they are there for sure!( or if you have any new feature,
+you are very warmly welcomed to submit an issue and if you can a PR. I promise
+that I'll try to answer everything ASAP (I've been burnt by maintainers completely
+ignoring bugs and PRs too, so I know how it is).

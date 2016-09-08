@@ -1,3 +1,18 @@
+# Class: omsa::service
+# ===========================
+#
+# Internal class to manage OMSA services
+#
+# Authors
+# -------
+#
+# Davide Ferrari <vide80@gmail.com>
+#
+# Copyright
+# ---------
+#
+# Copyright 2016 Davide Ferrari, unless otherwise noted.
+#
 class omsa::service() inherits omsa::params {
 
   service { $::omsa::service_name:

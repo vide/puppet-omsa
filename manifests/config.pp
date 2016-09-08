@@ -1,3 +1,18 @@
+# Class: omsa::params
+# ===========================
+#
+# Internal class to tweak OMSA configuration
+#
+# Authors
+# -------
+#
+# Davide Ferrari <vide80@gmail.com>
+#
+# Copyright
+# ---------
+#
+# Copyright 2016 Davide Ferrari, unless otherwise noted.
+#
 class omsa::config(){
 
   if ( str2bool("${::omsa::install_storage}")) {

@@ -1,7 +1,10 @@
 # Class: omsa
 # ===========================
 #
-# Full description of class omsa here.
+# OMSA is the Dell OpenManage System Administrator and it's a useful tool
+# to check and configure your Dell HW  from within the operating system
+# This puppet module takes care of installing it from Dell's repos and
+# and creates a basic configuration
 #
 # Parameters
 # ----------
@@ -15,24 +18,34 @@
 # * `manage_repo`
 #  Let this module manage the repositories for Dell OMSA installation
 #
-# Variables
-# ----------
+# * `service_name`
+# The service name used to start OMSA. Default: dataeng
 #
-# Here you should define a list of variables that this module would require.
+# * `service_ensure`
+# Controls whether the service should be running or not. Default: running
 #
-# * `sample variable`
-#  Explanation of how this variable affects the function of this class and if
-#  it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#  External Node Classifier as a comma separated list of hostnames." (Note,
-#  global variables should be avoided in favor of class parameters as
-#  of Puppet 2.6.)
+# * `service_enable`
+# Controls whether the service should be enabled at boot. Default: enabled
+#
+# * `install_storage`
+# If true, enable the "omreport storage" subset. Default: true
+#
+# * `install_webserver`
+# If true, enable the OMSA local webserver
+#
+# * `install_rac4`
+# Install components to manage the Dell Remote Access Card 4
+#
+# * `install_rac5`
+# Install components to manage the Dell Remote Access Card 5
 #
 # Examples
 # --------
 #
-# @example
+# Example: install OMSA with RAID support but disable service autostart
 #    class { 'omsa':
-#      servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
+#      service_ensure => 'stopped',
+#      install_storage => 'true',
 #    }
 #
 # Authors
@@ -56,7 +69,6 @@ class omsa(
   $install_rac4      = false,
   $install_rac5      = true,
 ) inherits omsa::params {
-
 
   if ( $::manufacturer =~ /^Dell.*/ ) {
     if str2bool("${manage_repo}") {

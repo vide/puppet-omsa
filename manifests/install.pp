@@ -1,3 +1,18 @@
+# Class: omsa::install
+# ===========================
+#
+# Internal class to install packages
+#
+# Authors
+# -------
+#
+# Davide Ferrari <vide80@gmail.com>
+#
+# Copyright
+# ---------
+#
+# Copyright 2016 Davide Ferrari, unless otherwise noted.
+#
 class omsa::install() {
 
   package { 'srvadmin-base':
