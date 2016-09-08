@@ -7,10 +7,33 @@
   "source": "https://github.com/vide/puppet-omsa",
   "project_page": "https://github.com/vide/puppet-omsa",
   "issues_url": "https://github.com/vide/puppet-omsa/issues",
+   "tags": ["dell", "omsa", "hardware"],
+  "operatingsystem_support": [
+    {
+    "operatingsystem":"CentOS",
+    "operatingsystemrelease":[ "6",
+                               "7" ]
+    },
+    {
+    "operatingsystem":"RedHat",
+    "operatingsystemrelease":[ "6",
+                               "7" ]
+    },
+    {
+    "operatingsystem": "Ubuntu",
+    "operatingsystemrelease": [ "14.04",
+                                "16.04" ]
+    },
+    {
+    "operatingsystem": "Debian",
+    "operatingsystemrelease": [ "7",
+                                "8" ]
+    }
+   ],
   "dependencies": [
     {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"},
-    {"name":"razorsedge-snmp","version_requirement":">= 3.0.0"},
-    {"name":"puppetlabs-apt","version_requirement":">= 2.0.0"}
+    {"name":"puppetlabs-apt","version_requirement":">= 2.0.0"},
+    {"name":"razorsedge-snmp","version_requirement":">= 3.0.0"}
   ],
   "data_provider": null
 }
