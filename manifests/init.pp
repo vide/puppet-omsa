@@ -58,17 +58,22 @@ class omsa(
 ) inherits omsa::params {
 
 
-  if str2bool("${manage_repo}") {
-    class { '::omsa::repo':
-      before => Class['::omsa::install'],
+  if ( $::manufacturer =~ /^Dell.*/ ) {
+    if str2bool("${manage_repo}") {
+      class { '::omsa::repo':
+        before => Class['::omsa::install'],
+      }
     }
+
+    contain ::omsa::install
+    contain ::omsa::config
+    contain ::omsa::service
+
+    Class['::omsa::install'] ->
+    Class['::omsa::config']  ->
+    Class['::omsa::service']
+  } else {
+    warning("OMSA works only on Dell hardware. Your HW is by ${::manufacturer}")
   }
 
-  contain ::omsa::install
-  contain ::omsa::config
-  contain ::omsa::service
-
-  Class['::omsa::install'] ->
-  Class['::omsa::config']  ->
-  Class['::omsa::service']
 }
