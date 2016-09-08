@@ -26,6 +26,9 @@ include ::omsa
 This will install the basic package, the storage (RAID) module and the RAC5
 module.
 
+**NOTE**: if you are installing OMSA with a manual puppet run, you have to log out
+and log in again to have `omreport` and `omconfig` executables in your path
+
 By default puppet-omsa enable external Dell's repositories (based on your OS),
 but if you want you can disable this feature
 
@@ -42,7 +45,7 @@ class { '::omsa':
  * `apt_key`
   Hash containing the GPG key server and key id, as expected by
   Puppetlabs apt module. Useful only if `manage_repo` is true and if `$::osfamily`
-  is Debian
+  is Debian. Defaults should be sane though.
 
  * `manage_repo`
   Let this module manage the repositories for Dell OMSA installation
@@ -77,7 +80,7 @@ Debian 7 and Debian 8 too, and Ubuntu 16.04 LTS.
 
 ## Development
 
-If you find any bug (they are there for sure!( or if you have any new feature,
+If you find any bug (they are there for sure!) or if you have any new feature,
 you are very warmly welcomed to submit an issue and if you can a PR. I promise
 that I'll try to answer everything ASAP (I've been burnt by maintainers completely
 ignoring bugs and PRs too, so I know how it is).
