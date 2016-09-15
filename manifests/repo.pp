@@ -1,4 +1,4 @@
-# Class: omsa::repo
+# Class: omsa::repositories
 # ===========================
 #
 # This class activate the needed Dell repositories to install OMSA
