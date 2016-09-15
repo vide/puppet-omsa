@@ -15,6 +15,9 @@ to check and configure your Dell HW  from within the operating system
 This puppet module takes care of installing it from Dell's repos and
 and creates a basic configuration
 
+This module was sponsored by [Billy Mobile Performance Network](http://www.billymob.com/en/)
+By the way, [we are hiring!](http://www.billymob.com/en/careers.html)
+
 ## Usage
 
 The most easy way to install puppet-omsa is to simply include the main class:
