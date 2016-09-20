@@ -3,15 +3,16 @@
 #### Table of Contents
 
 1. [Description](#description)
-1. [Usage - Configuration options and additional functionality](#usage)
-1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
+1. [Usage](#usage)
+  - [SNMP integration](#SNMP integration)
 1. [Limitations - OS compatibility, etc.](#limitations)
 1. [Development - Guide for contributing to the module](#development)
+1. [Changelog](#changelog)
 
 ## Description
 
 OMSA is the Dell OpenManage System Administrator and it's a useful tool
-to check and configure your Dell HW  from within the operating system
+to check and configure your Dell HW from within the operating system
 This puppet module takes care of installing it from Dell's repos and
 and creates a basic configuration
 
@@ -40,6 +41,11 @@ class { '::omsa':
   manage_repo => false,
 }
 ```
+
+#### SNMP integration
+
+SNMP integration is done with [razorsedge-snmp Puppet module](https://forge.puppet.com/razorsedge/snmp), which takes care to install SNMP server in your machine, if you enable the `enable_snmp` flag.
+Please note that, if you want to customize the SNMP installation (read-only community, traps etc.), **you must use Hiera** because this `omsa` module does not support passing all the parameters down to the `snmp` module.
 
 ## Reference
 
@@ -74,6 +80,13 @@ class { '::omsa':
  * `install_rac5`
  Install components to manage the Dell Remote Access Card 5
 
+ * `enable_snmp`
+ Enable SNMP integration by installing SNMP on the machine. Default: false
+
+ * `force_install`
+ Force OMSA installation even when $manufacturer is not Dell. Default: false
+
+
 ## Limitations
 
 This module has been tested on real hardware by the author only on CentOS7, but
@@ -87,3 +100,14 @@ If you find any bug (they are there for sure!) or if you have any new feature,
 you are very warmly welcomed to submit an issue and if you can a PR. I promise
 that I'll try to answer everything ASAP (I've been burnt by maintainers completely
 ignoring bugs and PRs too, so I know how it is).
+
+## Changelog
+
+#### 0.2
+- SNMP integration
+- Start WS server when needed (thanks to @jschaeff)
+- Make Vagrant testing easier
+
+#### 0.1
+- Initial release
+
