@@ -31,13 +31,19 @@
 # If true, enable the "omreport storage" subset. Default: true
 #
 # * `install_webserver`
-# If true, enable the OMSA local webserver
+# If true, enable the OMSA local webserver. Default: false
 #
 # * `install_rac4`
-# Install components to manage the Dell Remote Access Card 4
+# Install components to manage the Dell Remote Access Card 4. Default: false
 #
 # * `install_rac5`
-# Install components to manage the Dell Remote Access Card 5
+# Install components to manage the Dell Remote Access Card 5. Default: true
+#
+# * `enable_snmp`
+# Enable SNMP integration by installing SNMP on the machine. Default: false
+#
+# * `force_install`
+# Force OMSA installation even when $manufacturer is not Dell. Default: false
 #
 # Examples
 # --------
@@ -68,9 +74,11 @@ class omsa(
   $install_webserver = false,
   $install_rac4      = false,
   $install_rac5      = true,
+  $enable_snmp       = false,
+  $force_install     = false,
 ) inherits omsa::params {
 
-  if ( $::manufacturer =~ /^Dell.*/ ) {
+  if (( $::manufacturer =~ /^Dell.*/ ) or $force_install ) {
     if str2bool("${manage_repo}") {
       class { '::omsa::repo':
         before => Class['::omsa::install'],

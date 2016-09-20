@@ -20,7 +20,7 @@ class omsa::repo() inherits omsa::params {
     cwd  => '/',
   }
 
-  if !( $::architecture =~ /^(amd|x86_)64$/ ) {
+  if ( !( $::architecture =~ /^(amd|x86_)64$/ ) or !$::omsa::force_install ) {
     fail("Sorry, architecture ${::architecture} is not supported. Only x86_64|amd64")
   }
 
