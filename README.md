@@ -44,8 +44,21 @@ class { '::omsa':
 
 #### SNMP integration
 
-SNMP integration is done with [razorsedge-snmp Puppet module](https://forge.puppet.com/razorsedge/snmp), which takes care to install SNMP server in your machine, if you enable the `enable_snmp` flag.
-Please note that, if you want to customize the SNMP installation (read-only community, traps etc.), **you must use Hiera** because this `omsa` module does not support passing all the parameters down to the `snmp` module.
+SNMP integration, if you enable the `enable_snmp` flag, is done with [razorsedge-snmp Puppet module](https://forge.puppet.com/razorsedge/snmp), which takes care of installing snmpd in your machine.
+
+To enable integration between OMSA and SNMP you have to change a couple of default parameters in the `snmp` module:
+```yaml
+snmp::openmanage_enable: true
+snmp::views:
+    - 'systemview included .1.3.6.1.2.1.1'
+    - 'systemview included .1.3.6.1.2.1.25.1.1'
+    # add Dell's OIDs to the default view
+    - 'systemview included .1.3.6.1.4.1.674.10892'
+    - 'systemview included .1.3.6.1.4.1.674.10893'
+```
+Be aware that until [this PR](https://github.com/razorsedge/puppet-snmp/pull/80) is not merged, you won't have StorageService OIDs enabled. Feel free to implement the patch in your `snmp` fork.
+
+As a last note, you should know that if you want to customize the SNMP installation (read-only community, traps etc.), **you must use Hiera** because this `omsa` module does not support passing all the parameters down to the `snmp` module.
 
 ## Reference
 

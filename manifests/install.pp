@@ -26,28 +26,28 @@ class omsa::install() {
     }
   }
 
-  if ( str2bool("$::omsa::install_webserver")) {
+  if ( str2bool("${::omsa::install_webserver}")) {
     package { 'srvadmin-webserver':
       ensure  => installed,
       require => Package['srvadmin-base'],
     }
   }
 
-  if ( str2bool("$::omsa::install_rac4")) {
+  if ( str2bool("${::omsa::install_rac4}")) {
     package { 'srvadmin-rac4':
       ensure  => installed,
       require => Package['srvadmin-base'],
     }
   }
 
-  if ( str2bool("$::omsa::install_rac5")) {
+  if ( str2bool("${::omsa::install_rac5}")) {
     package { 'srvadmin-rac5':
       ensure  => installed,
       require => Package['srvadmin-base'],
     }
   }
 
-  if ( str2bool("$::omsa::enable_snmp")) {
+  if ( str2bool("${::omsa::enable_snmp}")) {
     # external dependency
     contain ::snmp
     package { 'srvadmin-server-snmp':

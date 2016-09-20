@@ -25,7 +25,7 @@ class omsa::service() inherits omsa::params {
     service {'dsm_om_connsvc':
       ensure  => $::omsa::service_ensure,
       enable  => $::omsa::service_enable,
-      require => Package['srvadmin-webserver']
+      require => Package['srvadmin-webserver'],
     }
   }
 }

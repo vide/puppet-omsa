@@ -1,6 +1,6 @@
 {
   "name": "vide-omsa",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Davide Ferrari",
   "summary": "Install and manage Dell OpenManage Server Administrator (OMSA)",
   "license": "GPL-2.0",
@@ -31,7 +31,7 @@
     }
    ],
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"},
+    {"name":"puppetlabs-stdlib","version_requirement":">= 2.0.0"},
     {"name":"puppetlabs-apt","version_requirement":">= 2.0.0"},
     {"name":"razorsedge-snmp","version_requirement":">= 3.0.0"}
   ],
