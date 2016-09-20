@@ -46,4 +46,19 @@ class omsa::install() {
       require => Package['srvadmin-base'],
     }
   }
+
+  if ( str2bool("$::omsa::enable_snmp")) {
+    # external dependency
+    contain ::snmp
+    package { 'srvadmin-server-snmp':
+      ensure  => installed,
+      require => [ Package['srvadmin-base'], Class[::snmp] ],
+    }
+    if ( str2bool("${::omsa::install_storage}")) {
+      package { 'srvadmin-storageservices-snmp':
+        ensure  => installed,
+        require => Package['srvadmin-server-snmp'],
+      }
+    }
+  }
 }

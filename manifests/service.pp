@@ -23,7 +23,8 @@ class omsa::service() inherits omsa::params {
   }
   if ( str2bool($::omsa::install_webserver)) {
     service {'dsm_om_connsvc':
-      ensure  => running,
+      ensure  => $::omsa::service_ensure,
+      enable  => $::omsa::service_enable,
       require => Package['srvadmin-webserver']
     }
   }
