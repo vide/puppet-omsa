@@ -76,6 +76,9 @@ class omsa(
   $install_rac5      = true,
   $enable_snmp       = false,
   $force_install     = false,
+  $install_idrac     = false,
+  $install_idrac7    = false,
+  $install_all       = false,
 ) inherits omsa::params {
 
   if (( $::manufacturer =~ /^Dell.*/ ) or $force_install ) {

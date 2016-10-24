@@ -18,7 +18,13 @@ class omsa::install() {
   package { 'srvadmin-base':
     ensure => installed,
   }
-
+  
+  if ( str2bool("${::omsa::install_all}")) {
+    package { 'srvadmin-all':
+      ensure  => installed,
+    }
+  }
+  
   if ( str2bool("${::omsa::install_storage}")) {
     package { 'srvadmin-storageservices':
       ensure  => installed,
@@ -61,4 +67,19 @@ class omsa::install() {
       }
     }
   }
+  
+  if ( str2bool("${::omsa::install_idac}")) {
+    package { 'srvadmin-idrac':
+      ensure  => installed,
+      require => Package['srvadmin-base'],
+    }
+  }
+  
+  if ( str2bool("${::omsa::install_idrac7}")) {
+    package { 'srvadmin-idrac7':
+      ensure  => installed,
+      require => Package['srvadmin-base'],
+    }
+  }
 }
+
