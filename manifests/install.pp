@@ -13,7 +13,9 @@
 #
 # Copyright 2016 Davide Ferrari, unless otherwise noted.
 #
-class omsa::install() {
+class omsa::install( 
+$srvadmin_all      = $::omsa::install_all,
+) {
 
   package { 'srvadmin-base':
     ensure => installed,
@@ -25,28 +27,28 @@ class omsa::install() {
     }
   }
   
-  if ( str2bool("${::omsa::install_storage}")) {
+  if ( (str2bool("${::omsa::install_storage}")) and (str2bool("$srvadmin_all")) != true ) {
     package { 'srvadmin-storageservices':
       ensure  => installed,
       require => Package['srvadmin-base'],
     }
   }
 
-  if ( str2bool("${::omsa::install_webserver}")) {
+  if ( ( str2bool("${::omsa::install_webserver}")) and (str2bool("$srvadmin_all")) != true ) {
     package { 'srvadmin-webserver':
       ensure  => installed,
       require => Package['srvadmin-base'],
     }
   }
 
-  if ( str2bool("${::omsa::install_rac4}")) {
+  if ( ( str2bool("${::omsa::install_rac4}")) and (str2bool("$srvadmin_all")) != true ) {
     package { 'srvadmin-rac4':
       ensure  => installed,
       require => Package['srvadmin-base'],
     }
   }
 
-  if ( str2bool("${::omsa::install_rac5}")) {
+  if ( (str2bool("${::omsa::install_rac5}")) and (str2bool("$srvadmin_all")) != true ) {
     package { 'srvadmin-rac5':
       ensure  => installed,
       require => Package['srvadmin-base'],
@@ -68,7 +70,7 @@ class omsa::install() {
     }
   }
   
-  if ( str2bool("${::omsa::install_idac}")) {
+  if ( str2bool("${::omsa::install_idrac}")) {
     package { 'srvadmin-idrac':
       ensure  => installed,
       require => Package['srvadmin-base'],

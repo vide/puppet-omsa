@@ -100,10 +100,10 @@ As a last note, you should know that if you want to customize the SNMP installat
  Force OMSA installation even when $manufacturer is not Dell. Default: false
 
  * `install_idrac`
- Install the meta package-idrac package. Default: false
+ Install the idrac meta package. Default: false
  
  * `install_idrac7`
- Install the meta package-idrac7 package. Default: false
+ Install the idrac7 meta package. Default: false
 
  * `install_all`
  Install all srvadmin-packages available from the repository. Default: false
