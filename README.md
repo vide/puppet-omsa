@@ -99,6 +99,14 @@ As a last note, you should know that if you want to customize the SNMP installat
  * `force_install`
  Force OMSA installation even when $manufacturer is not Dell. Default: false
 
+ * `install_idrac`
+ Install the idrac meta package. Default: false
+ 
+ * `install_idrac7`
+ Install the idrac7 meta package. Default: false
+
+ * `install_all`
+ Install all srvadmin-packages available from the repository. Default: false
 
 ## Limitations
 
@@ -113,6 +121,21 @@ If you find any bug (they are there for sure!) or if you have any new feature,
 you are very warmly welcomed to submit an issue and if you can a PR. I promise
 that I'll try to answer everything ASAP (I've been burnt by maintainers completely
 ignoring bugs and PRs too, so I know how it is).
+
+#### Testing your changes
+
+Install the needed gems with `bundle install` and check your code with:
+- `bundle exec rake validate`
+- `bundle exec rake lint` (don't worry about string containing only one 
+variables warnings, they are due to the `str2bool()` use)
+
+If you have Vagrant + VirtualBox installed, you can run a VM to test the code with:
+
+`vagrant up centos`
+
+or with
+
+`vagrant up ubuntu` 
 
 #### Opening a PR
 
