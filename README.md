@@ -114,12 +114,21 @@ you are very warmly welcomed to submit an issue and if you can a PR. I promise
 that I'll try to answer everything ASAP (I've been burnt by maintainers completely
 ignoring bugs and PRs too, so I know how it is).
 
+#### Opening a PR
+
+Please open the PR against the `development` branch, not against master. Thanks!
+
 ## Changelog
+
+#### 0.3
+- Add iDRAC7 packages installation (thanks to @palsveningson)
+- Add srvadmin-all package installation (thanks to @palsveningson)
+- Slightly changed contribution workflow
 
 #### 0.2
 - SNMP integration
 - Start WS server when needed (thanks to @jschaeff)
-- Make Vagrant testing easier
+- Vagrant testing made easier
 
 #### 0.1
 - Initial release
