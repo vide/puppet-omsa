@@ -19,45 +19,65 @@ class omsa::install() {
     ensure => installed,
   }
 
-  if ( str2bool("${::omsa::install_storage}")) {
-    package { 'srvadmin-storageservices':
+  if ( str2bool("${::omsa::install_all}")) {
+    package { 'srvadmin-all':
       ensure  => installed,
-      require => Package['srvadmin-base'],
     }
-  }
-
-  if ( str2bool("${::omsa::install_webserver}")) {
-    package { 'srvadmin-webserver':
-      ensure  => installed,
-      require => Package['srvadmin-base'],
-    }
-  }
-
-  if ( str2bool("${::omsa::install_rac4}")) {
-    package { 'srvadmin-rac4':
-      ensure  => installed,
-      require => Package['srvadmin-base'],
-    }
-  }
-
-  if ( str2bool("${::omsa::install_rac5}")) {
-    package { 'srvadmin-rac5':
-      ensure  => installed,
-      require => Package['srvadmin-base'],
-    }
-  }
-
-  if ( str2bool("${::omsa::enable_snmp}")) {
-    # external dependency
-    contain ::snmp
-    package { 'srvadmin-server-snmp':
-      ensure  => installed,
-      require => [ Package['srvadmin-base'], Class[::snmp] ],
-    }
+  } else {
     if ( str2bool("${::omsa::install_storage}")) {
-      package { 'srvadmin-storageservices-snmp':
+      package { 'srvadmin-storageservices':
         ensure  => installed,
-        require => Package['srvadmin-server-snmp'],
+        require => Package['srvadmin-base'],
+      }
+    }
+
+    if ( str2bool("${::omsa::install_webserver}")) {
+      package { 'srvadmin-webserver':
+        ensure  => installed,
+        require => Package['srvadmin-base'],
+      }
+    }
+
+    if ( str2bool("${::omsa::install_rac4}")) {
+      package { 'srvadmin-rac4':
+        ensure  => installed,
+        require => Package['srvadmin-base'],
+      }
+    }
+
+    if ( str2bool("${::omsa::install_rac5}")) {
+      package { 'srvadmin-rac5':
+        ensure  => installed,
+        require => Package['srvadmin-base'],
+      }
+    }
+
+    if ( str2bool("${::omsa::install_idrac}")) {
+      package { 'srvadmin-idrac':
+        ensure  => installed,
+        require => Package['srvadmin-base'],
+      }
+    }
+
+    if ( str2bool("${::omsa::install_idrac7}")) {
+      package { 'srvadmin-idrac7':
+        ensure  => installed,
+        require => Package['srvadmin-base'],
+      }
+    }
+
+    if ( str2bool("${::omsa::enable_snmp}")) {
+      # external dependency
+      contain ::snmp
+      package { 'srvadmin-server-snmp':
+        ensure  => installed,
+        require => [ Package['srvadmin-base'], Class[::snmp] ],
+      }
+      if ( str2bool("${::omsa::install_storage}")) {
+        package { 'srvadmin-storageservices-snmp':
+          ensure  => installed,
+          require => Package['srvadmin-server-snmp'],
+        }
       }
     }
   }

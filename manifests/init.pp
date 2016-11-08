@@ -45,6 +45,16 @@
 # * `force_install`
 # Force OMSA installation even when $manufacturer is not Dell. Default: false
 #
+# * `install_idrac`
+# Install idrac management package. Default: false
+#
+# * `install_idrac7`
+# Install idrac7 management package. Default: false
+#
+# * `install_all`
+# Install the srvadmin-all package which automatically pulls all the rest
+# Default: false
+#
 # Examples
 # --------
 #
@@ -76,6 +86,9 @@ class omsa(
   $install_rac5      = true,
   $enable_snmp       = false,
   $force_install     = false,
+  $install_idrac     = false,
+  $install_idrac7    = false,
+  $install_all       = false,
 ) inherits omsa::params {
 
   if (( $::manufacturer =~ /^Dell.*/ ) or $force_install ) {

@@ -99,6 +99,14 @@ As a last note, you should know that if you want to customize the SNMP installat
  * `force_install`
  Force OMSA installation even when $manufacturer is not Dell. Default: false
 
+ * `install_idrac`
+ Install the idrac meta package. Default: false
+ 
+ * `install_idrac7`
+ Install the idrac7 meta package. Default: false
+
+ * `install_all`
+ Install all srvadmin-packages available from the repository. Default: false
 
 ## Limitations
 
@@ -114,12 +122,36 @@ you are very warmly welcomed to submit an issue and if you can a PR. I promise
 that I'll try to answer everything ASAP (I've been burnt by maintainers completely
 ignoring bugs and PRs too, so I know how it is).
 
+#### Testing your changes
+
+Install the needed gems with `bundle install` and check your code with:
+- `bundle exec rake validate`
+- `bundle exec rake lint` (don't worry about string containing only one 
+variables warnings, they are due to the `str2bool()` use)
+
+If you have Vagrant + VirtualBox installed, you can run a VM to test the code with:
+
+`vagrant up centos`
+
+or with
+
+`vagrant up ubuntu` 
+
+#### Opening a PR
+
+Please open the PR against the `development` branch, not against master. Thanks!
+
 ## Changelog
+
+#### 0.3
+- Add iDRAC7 packages installation (thanks to @palsveningson)
+- Add srvadmin-all package installation (thanks to @palsveningson)
+- Slightly changed contribution workflow
 
 #### 0.2
 - SNMP integration
 - Start WS server when needed (thanks to @jschaeff)
-- Make Vagrant testing easier
+- Vagrant testing made easier
 
 #### 0.1
 - Initial release
