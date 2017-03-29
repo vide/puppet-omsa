@@ -1,6 +1,6 @@
 # omsa_version.rb
 
-if Facter.value(:manufacturer) == 'Dell Inc.'
+if (Facter.value(:manufacturer) == 'Dell Inc.') and (File.exists? "/opt/dell/srvadmin/bin/omreport")
   Facter.add("omsa_version") do
         confine :kernel => 'Linux'
         setcode do
