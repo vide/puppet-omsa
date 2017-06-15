@@ -24,8 +24,8 @@ class omsa::service() inherits omsa::params {
   }
   if ( str2bool($::omsa::install_webserver) or str2bool("${::omsa::install_all}")) {
     service {'dsm_om_connsvc':
-      ensure  => $::omsa::service_ensure,
-      enable  => $::omsa::service_enable,
+      ensure  => $::omsa::service_webserver_ensure,
+      enable  => $::omsa::service_webserver_enable,
       require => Class['::omsa::install'],
     }
   }
