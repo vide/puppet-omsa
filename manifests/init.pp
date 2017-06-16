@@ -27,6 +27,12 @@
 # * `service_enable`
 # Controls whether the service should be enabled at boot. Default: enabled
 #
+# * `service_webserver_ensure`
+# Controls whether the webserver service should be running or not. Default: running
+#
+# * `service_webserver_enable`
+# Controls whether the webserver service should be enabled at boot. Default: enabled
+#
 # * `install_storage`
 # If true, enable the "omreport storage" subset. Default: true
 #
@@ -80,6 +86,8 @@ class omsa(
   $service_name      = $::omsa::params::service_name,
   $service_ensure    = $::omsa::params::service_ensure,
   $service_enable    = $::omsa::params::service_enable,
+  $service_webserver_ensure    = $::omsa::params::service_ensure,
+  $service_webserver_enable    = $::omsa::params::service_enable,
   $install_storage   = true,
   $install_webserver = false,
   $install_rac4      = false,
