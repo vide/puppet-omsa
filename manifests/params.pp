@@ -20,14 +20,28 @@ class omsa::params {
     server => 'hkp://ha.pool.sks-keyservers.net:80',
   }
 
-  $service_name = 'dataeng'
-  $service_enable = true
-  $service_ensure = 'running'
+  $service_name      = 'dataeng'
+  $service_enable    = true
+  $service_ensure    = 'running'
+  $install_storage   = true
+  $install_webserver = false
+  $install_rac4      = false
+  $enable_snmp       = false
+  $force_install     = false
+  # aka idrac6
+  $install_idrac     = false
+  $install_idrac7    = false
+  $install_idrac8    = false
+  $install_all       = false
 
   case $::osfamily {
     'Debian': {
       $service_hasstatus  = true
       $service_hasrestart = true
+      $install_rac5       = false
+      $idrac6_package     = undef
+      $idrac7_package     = 'srvadmin-idracadm7'
+      $idrac8_package     = 'srvadmin-idracadm8'
     }
     'RedHat': {
       if versioncmp($::operatingsystemmajrelease, '7') >= 0 {
@@ -35,10 +49,15 @@ class omsa::params {
         $service_hasstatus  = true
         $service_hasrestart = true
       }
+      $install_rac5   = true
+      $idrac6_package = 'srvadmin-idrac'
+      $idrac7_package = 'srvadmin-idrac7'
+      $idrac8_package = undef
     }
     default: {
       $service_hasstatus  = true
       $service_hasrestart = true
+      $install_rac5       = true
     }
   }
 }
