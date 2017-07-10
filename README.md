@@ -1,10 +1,9 @@
 # omsa
 
-#### Table of Contents
+## Table of Contents
 
 1. [Description](#description)
 1. [Usage](#usage)
-  - [SNMP integration](#SNMP integration)
 1. [Limitations - OS compatibility, etc.](#limitations)
 1. [Development - Guide for contributing to the module](#development)
 1. [Changelog](#changelog)
@@ -56,7 +55,6 @@ snmp::views:
     - 'systemview included .1.3.6.1.4.1.674.10892'
     - 'systemview included .1.3.6.1.4.1.674.10893'
 ```
-Be aware that until [this PR](https://github.com/razorsedge/puppet-snmp/pull/80) is not merged, you won't have StorageService OIDs enabled. Feel free to implement the patch in your `snmp` fork.
 
 As a last note, you should know that if you want to customize the SNMP installation (read-only community, traps etc.), **you must use Hiera** because this `omsa` module does not support passing all the parameters down to the `snmp` module.
 
@@ -88,10 +86,10 @@ As a last note, you should know that if you want to customize the SNMP installat
  If true, enable the OMSA local webserver
 
  * `install_rac4`
- Install components to manage the Dell Remote Access Card 4
+ Install components to manage the Dell Remote Access Card 4 (RedHat only)
 
  * `install_rac5`
- Install components to manage the Dell Remote Access Card 5
+ Install components to manage the Dell Remote Access Card 5 (RedHat only)
 
  * `enable_snmp`
  Enable SNMP integration by installing SNMP on the machine. Default: false
@@ -100,20 +98,30 @@ As a last note, you should know that if you want to customize the SNMP installat
  Force OMSA installation even when $manufacturer is not Dell. Default: false
 
  * `install_idrac`
- Install the idrac meta package. Default: false
+ Install the idrac meta package for iDRAC6. Default: false (RedHat only)
  
  * `install_idrac7`
- Install the idrac7 meta package. Default: false
+ Install the idrac7 meta package for iDRAC7. Default: false
+
+ * `install_idrac8`
+ Install the idrac8 meta package for iDRAC8. Default: false (Debian only)
 
  * `install_all`
  Install all srvadmin-packages available from the repository. Default: false
 
 ## Limitations
 
+**This module is for Puppet3!** It should work with Puppet>=4 but it forces
+dependencies that are known to work well with Puppet3, since the author is 
+still on Puppet3.
+
 This module has been tested on real hardware by the author only on CentOS7, but
 it should work with CentOS6 and RHEL6 and 7.
 It has been tested in Vagrant with Ubuntu 14.04 LTS and it should work on bare metal with
 Debian 7 and Debian 8 too, and Ubuntu 16.04 LTS.
+
+Missing components on a distribution basis are not author's choiches, it's an
+upstream packagement issue. Please complain to Dell :)
 
 ## Development
 
@@ -131,17 +139,20 @@ variables warnings, they are due to the `str2bool()` use)
 
 If you have Vagrant + VirtualBox installed, you can run a VM to test the code with:
 
-`vagrant up centos`
-
-or with
-
-`vagrant up ubuntu` 
+```bash
+$ librarian-puppet install
+$ vagrant up centos|ubuntu|debian
+```
 
 #### Opening a PR
 
 Please open the PR against the `development` branch, not against master. Thanks!
 
 ## Changelog
+
+#### 0.4
+- Add iDRAC8 packages under Debian, removed racadm packages always under Debian (fixes #4)
+- Updated documentation and testing
 
 #### 0.3
 - Add iDRAC7 packages installation (thanks to @palsveningson)

@@ -11,19 +11,30 @@ Vagrant.configure("2") do |config|
     centos.vm.box     = 'vStone/centos-7.x-puppet.3.x'
     centos.vm.provision :puppet do |puppet|
       puppet.manifests_path = "examples"
-      puppet.manifest_file  = "vagrant.pp"
+      puppet.manifest_file  = "redhat.pp"
       puppet.options        = ["--modulepath", "/tmp/puppet-modules"]
     end
   end
 
   config.vm.define "ubuntu", primary: true do |ubuntu|
-    ubuntu.vm.box     = 'castiron/ubuntu-14.04-64-puppet-3.8.3'
-    ubuntu.vm.provision :shell, :inline => 'aptitude update'
+    ubuntu.vm.box     = 'wandisco/ubuntu-16.04-64'
+    ubuntu.vm.provision :shell, :inline => 'apt update'
     ubuntu.vm.provision :puppet do |puppet|
       puppet.manifests_path = "examples"
-      puppet.manifest_file  = "vagrant.pp"
+      puppet.manifest_file  = "debian.pp"
       puppet.options        = ["--modulepath", "/tmp/puppet-modules"]
     end
   end
+
+  config.vm.define "debian", primary: true do |debian|
+    debian.vm.box     = 'dhoppe/debian-8.8.0-amd64'
+    debian.vm.provision :shell, :inline => 'apt update'
+    debian.vm.provision :puppet do |puppet|
+      puppet.manifests_path = "examples"
+      puppet.manifest_file  = "debian.pp"
+      puppet.options        = ["--modulepath", "/tmp/puppet-modules"]
+    end
+  end
+
 
 end
