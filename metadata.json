@@ -1,6 +1,6 @@
 {
   "name": "vide-omsa",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "author": "Davide Ferrari",
   "summary": "Install and manage Dell OpenManage Server Administrator (OMSA)",
   "license": "GPL-2.0",

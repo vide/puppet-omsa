@@ -34,10 +34,10 @@
 # If true, enable the OMSA local webserver. Default: false
 #
 # * `install_rac4`
-# Install components to manage the Dell Remote Access Card 4. Default: false
+# Install components to manage the Dell Remote Access Card 4. Default: false (RH only)
 #
 # * `install_rac5`
-# Install components to manage the Dell Remote Access Card 5. Default: true
+# Install components to manage the Dell Remote Access Card 5. Default: true (RH only)
 #
 # * `enable_snmp`
 # Enable SNMP integration by installing SNMP on the machine. Default: false
@@ -50,6 +50,9 @@
 #
 # * `install_idrac7`
 # Install idrac7 management package. Default: false
+#
+# * `install_idrac8`
+# Install idrac8 management package. Default: false (Debian only)
 #
 # * `install_all`
 # Install the srvadmin-all package which automatically pulls all the rest

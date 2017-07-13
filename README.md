@@ -150,6 +150,10 @@ Please open the PR against the `development` branch, not against master. Thanks!
 
 ## Changelog
 
+#### 0.4.1
+CRITICAL BUGFIX
+- Version 0.4.0 broke RHEL support. Update to 0.4.1.
+
 #### 0.4
 - Add iDRAC8 packages under Debian, removed racadm packages always under Debian (fixes #4)
 - Updated documentation and testing

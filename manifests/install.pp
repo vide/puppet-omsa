@@ -46,7 +46,7 @@ class omsa::install() {
           require => Package['srvadmin-base'],
         }
       } else {
-        fail("${::omsa::install_rac5} package is only supported under RedHat")
+        fail("srvadmin-rac4 package is only supported under RedHat")
       }
     }
 
@@ -57,7 +57,7 @@ class omsa::install() {
           require => Package['srvadmin-base'],
         }
       } else {
-        fail("${::omsa::install_rac5} package is only supported under RedHat")
+        fail("srvadmin-rac5 package is only supported under RedHat")
       }
     }
 
@@ -75,14 +75,16 @@ class omsa::install() {
       }
     }
 
-    # idrac8 package currently exists only as .deb
-    if ($::osfamily == 'Debian') {
-      package { $::omsa::params::idrac8_package:
-        ensure  => installed,
-        require => Package['srvadmin-base'],
+    if ( str2bool("${::omsa::install_idrac8}")) {
+      # idrac8 package currently exists only as .deb
+      if ($::osfamily == 'Debian') {
+        package { $::omsa::params::idrac8_package:
+          ensure  => installed,
+          require => Package['srvadmin-base'],
+        }
+      } else {
+        fail("${::omsa::params::idrac8_package} package is only supported under Debian family")
       }
-    } else {
-      fail("${::omsa::params::idrac8_package} package is only supported under Debian family")
     }
 
     if ( str2bool("${::omsa::enable_snmp}")) {
